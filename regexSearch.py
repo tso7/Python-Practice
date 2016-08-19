@@ -23,17 +23,19 @@ for file in fileList:
     if '.txt' not in file:
         del fileList[fileList.index(file)]
 
+# Open each file one by one
 for file in fileList:
     print ('Filename: ' + file)
     fileHandler = open(folder + file)
     content = fileHandler.read()
     print ('Matched regex: ')
     key = regex.search(content)
-    for item in content.split('\n'):
-        if key.group() in item:
-            print (item.strip())
+    if key != None:
+        for item in re.split('[,.\n]+', content):
+            if key.group() in item:
+                print (item.strip())
+    else:
+        print ('No matching expression found.')
     fileHandler.close()
- 
-# Open each file one by one
-print (fileList)
+
 # Display matched expression
